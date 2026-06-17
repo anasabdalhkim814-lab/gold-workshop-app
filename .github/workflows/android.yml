@@ -8,28 +8,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout project
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node 22
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: 22
 
-      - name: Verify Node version
-        run: node -v
+      - name: Check Node
+        run: |
+          node -v
+          which node
 
-      - name: Install dependencies
+      - name: Install deps
         run: npm install
 
-      - name: Build web app
+      - name: Build web
         run: npm run build
 
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: 17
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -46,5 +48,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: gold-workshop-apk
+          name: apk
           path: android/app/build/outputs/apk/debug/*.apk
